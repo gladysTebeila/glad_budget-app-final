@@ -11,7 +11,7 @@ function AddItem(props){
     })
     return(
         <div>
-            <h1>Add transsection</h1>
+            <h1 style={{paddingTop:"25px"}}>Add Transaction</h1>
             <input placeholder="Enter item" onChange={(e)=>setItem(e.target.value)} /><br></br>
             <input placeholder="Enter amount" onChange={(e)=>setAmount(e.target.value)} /><br></br>
             <select onChange={(e)=>setTransectionType(e.target.value)}>
