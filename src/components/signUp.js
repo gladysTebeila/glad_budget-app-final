@@ -1,23 +1,37 @@
-import {useHistory} from 'react-router-dom';
-import {Link} from 'react-router-dom';
-
+import React, {useState} from "react";
+import {useHistory} from "react-router-dom"
+import {createUserWithEmailAndPassword} from 'firebase/auth'
+import {auth} from '../config/firebase'
 
 function SignUp(){
 
-    let history=useHistory();
-    const register = (()=>{
-        history.push("/home");
+    const [email, setEmail]=useState('');
+    const [Name, setName]=useState('');
+    const [password, setPassword]=useState('');
 
+    let history = useHistory();
+
+    const register = (()=>{
+
+        createUserWithEmailAndPassword(auth, email, Name, password).then(()=>{
+            history.push("/home");
+        }).catch((error)=>{
+            console.log(error);
+        })
+        
     })
 
     return(
-        <div className='container'>
-            <h1>Sign Up here</h1>
-            <input type="email" placeholder="Enter your email" /><br></br>
-            <input type="password" placeholder="Enter your password" />
+        <div className="container">
 
-            <button style={{width: "150px", height: "30px", marginTop:"3%"}} onClick={register}>Register here</button>
+            <h1>Sign Up</h1>
+            <input type="email" placeholder="Enter your email" onChange={(e)=>setEmail(e.target.value)}/><br></br>
+            <input type="text" placeholder="Enter your name and surname" onChange={(e)=>setName(e.target.value)}/><br></br>
+            <input type="password" placeholder="Enter your password" onChange={(e)=>setPassword(e.target.value)}/><br></br>
+
+            <button style={{width: "150px", height: "30px"}} onClick={register}>SignUp</button>
         </div>
     )
 }
-export default SignUp
+
+export default SignUp;

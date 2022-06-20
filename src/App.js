@@ -1,35 +1,44 @@
 import logo from './logo.svg';
 import './App.css';
+
 import React, {userState, useState} from 'react';
 import Home from './components/home';
 import Login from './components/login';
 import SignUp from './components/signUp';
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ForgotPass from './components/forgot';
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
+  const [transection, setTransection]=useState([]);
 
-  const [transaction, setTransection]=useState([]);
-  const addTransection=((amount, item, transectionType)=>{
-
-    setTransection((items)=>[...items,{
+  const addTransaction=((amount, item, transactionType)=>{
+    setTransection((items)=>[...items, {
       amount:amount,
       item:item,
-      transectionType:transectionType
+      transactionType:transactionType
     }])
-    console.log(transaction)
+    console.log(transection)
   })
   return (
+
     <Router>
       <Switch>
-        <Route exact path="/" component={Login}></Route>
+        <Route  exact path="/" component={Login}></Route>
         <Route path="/sign-up" component={SignUp}></Route>
+        <Route path="/forgotPassword" component={ForgotPass}></Route>
 
         <Route path="/home">
-          <Home list={transaction} add={addTransection}></Home>
+        <Home list={transection} add={addTransaction} />
         </Route>
       </Switch>
     </Router>
+    // <div>
+    //   <Home list={transection} add={addTransaction} />
+    // </div>
   );
 }
 
 export default App;
+
+
